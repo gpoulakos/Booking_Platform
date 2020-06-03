@@ -1,0 +1,223 @@
+﻿<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="stylesheet" href="style.css" />
+    <!--<script src="https://kit.fontawesome.com/9444859576.js" crossorigin="anonymous"></script>-->
+    <link href="https://fonts.googleapis.com/icon?family=Material+Icons"
+          rel="stylesheet">
+    <script src="Scripts/angular.js"></script>
+
+    <title>Booking Platform</title>
+</head>
+
+
+<body ng-app="HotelApp" ng-controller="HotelController">
+    <div class="container" id="container" >
+
+        <div class="header">
+            <!--Search area-->
+            <div class="first-row">
+                <span class="material-icons searchIcon">
+                    search
+                </span>                
+                <input type="text" class="search-bar"  ng-model="search.hotelName" placeholder="Search" />
+                <input type="submit" class="search-button" value="Search" />
+            </div>
+
+            <!--Check-in / Check-out / Rooms-->
+
+            <div class="second-row">
+
+                <div class="check-in-area">
+                    <span class="material-icons calendarIcon">
+                        today
+                    </span>
+                    <div class="check-in">
+                        <input type="text" class="check-in-date" placeholder="Check-In" onfocus="(this.type='date')" onblur="(this.type='text')" />
+                        <span class="material-icons sidearrowIcons">
+                            keyboard_arrow_left
+                        </span>
+                        <span class="material-icons sidearrowIcons">
+                            keyboard_arrow_right
+                        </span>
+                    </div>
+                </div>
+                
+                <div class="check-out-area">
+                    <span class="material-icons calendarIcon">
+                        event
+                    </span>
+                    <div class="check-out">
+                        <input type="text" class="check-out-date" placeholder="Check-Out" onfocus="(this.type='date')" onblur="(this.type='text')" />
+                        <span class="material-icons sidearrowIcons">
+                            keyboard_arrow_left
+                        </span>
+                        <span class="material-icons sidearrowIcons">
+                            keyboard_arrow_right
+                        </span>
+                    </div>
+                </div>
+               
+                <div class="room-items">
+                    <span class="material-icons groupIcon smoothleft">
+                        people_outline
+                    </span>
+                    <select class="room-option smoothright">
+                        <option selected>Family Rooms</option>
+                        <option>Single Rooms</option>
+                        <option>Double Rooms</option>
+                    </select>
+                </div>
+            </div>
+
+            <div class="third-row">
+                <!--Slider item-->
+                <div class="slider-box">
+                    <div class="tags">
+                        <div class="price-tag">Price</div>
+                        <div class="max-tag">
+                            max.  $
+                            <div class="current-price" id="currentPrice"></div>
+                        </div>
+                    </div>
+                    <div class="price-slider">
+                        <input type="range" ng-model="max" id="myRange" class="slider" min="0" max="3000" />
+
+                    </div>
+                </div>
+                <!--This is a barrier between boxes-->
+                <div class="vertical-line"></div>
+
+                <!--Property type - stars-->
+                <div class="property-container">
+                    <div class="property-type">
+                        Property type
+                        <div class="select-property-type">
+                            <select class="property-option" ng-model="search.rating">
+                                <option value="{{undefined}}">All</option>
+                                <option ng-value="1">1</option>
+                                <option ng-value="2">2</option>
+                                <option ng-value="3">3</option>
+                                <option ng-value="4">4</option>
+                                <option ng-value="5">5</option>
+                            </select>
+                        </div>
+                    </div>
+                </div>
+                <!--This is a barrier between boxes-->
+                <div class="vertical-line"></div>
+
+                <!--Rating of guests-->
+                <div class="guest-rating-container">
+                    <div class="guest-rating">
+                        Guest rating
+                        <div class="select-guest-rating">
+                            <select class="guest-rating-option" ng-model="search.ratings.no">
+                                <option selected value="{{undefined}}">All</option>
+                                <option ng-value="1">0-2</option>
+                                <option ng-value="2">2-6</option>
+                                <option ng-value="3">6-7</option>
+                                <option ng-value="4">7-8.5</option>
+                                <option value="{{undefined}}">8.5-10</option>
+                            </select>
+                        </div>
+                    </div>
+                </div>
+                <!--This is a barrier between boxes-->
+                <div class="vertical-line"></div>
+
+                <!--Location of hotels-->
+                <div class="hotel-location-container">
+                    <div class="hotel-location">
+                        Hotel Location
+                        <div class="select-hotel-location">
+                            <select class="hotel-location-option" ng-model="search.city">
+                                <option value="{{undefined}}">All</option>
+                                <option>Paris</option>
+                                <option>Toulouz</option>
+                                <option>Marseille</option>
+                            </select>
+                        </div>
+                    </div>
+                </div>
+
+                <!--This is a barrier between boxes-->
+                <div class="vertical-line"></div>
+
+                <!--Filters of property-->
+                <div class="more-filters-container">
+                    <div class="more-filters">
+                        More filters
+                        <div class="select-filters">
+                            <select class="filters-option" ng-model="search.filters.name">
+                                <option value="{{undefined}}">All</option>
+                                <option>Wifi</option>
+                                <option>Car Park</option>
+                                <option>Sauna</option>
+                                <option>Pool</option>
+                                <option>Balcony</option>
+                            </select>
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+
+            <!--Gray Section-->
+            <div class="fourth-row">
+
+                <!--Google Maps-->
+                    <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d2624.3924192943246!2d2.3056317155554393!3d48.869795279288645!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x47e66fc4f8007851%3A0x5aa1a787f38f64f6!2zQXYuIGRlcyBDaGFtcHMtw4lseXPDqWVzLCA3NTAwOCBQYXJpcywgzpPOsc67zrvOr86x!5e0!3m2!1sel!2sgr!4v1589040183346!5m2!1sel!2sgr"
+                            width="400" height="50" frameborder="0" style="border:0;" allowfullscreen="" aria-hidden="false" class="map-item" tabindex="0"></iframe>
+                <!--reccomendations-->
+                <div class="sort-by-container">
+                    <div class="sort-by">
+                        <p>Sort by </p>
+                        <select class="sort-by-list">
+                            <option selected>Our reccomendations</option>
+                        </select>
+                        <span class="material-icons informationIcon">
+                            info
+                        </span>
+                    </div>
+                </div>
+                
+            </div>
+        </div>
+
+        <!--Hotel reluts items with angular!!-->
+        <div class="hotels" ng-repeat="hotel in Hotels | filter:filterPrice | filter:search:strict | orderBy:'+guestrating'">
+            <div class="hotel">
+                <img class="hotel-img" style="max-width:100%" src="{{hotel.thumbnail}}" alt="Hotel Image" />
+                <div class="hotel-description">
+                    <div class="hotel-title">{{hotel.hotelName}}</div>
+                    <div class="hotel-stars">
+                        <span class="material-icons starIcon" ng-repeat="stars in [].constructor(hotel.rating) track by $index">
+                            star
+                        </span>Hotel
+                    </div>
+                    <div class="ratings">
+                        <div class="hotel-rating">{{hotel.ratings.no}}</div>
+                        <div class="hotel-text-rating">{{hotel.ratings.text}}</div>
+                    </div>
+                    <div class="guest-rating-description" style:"text-emphasis"> {{hotel.ratings.text}} location ({{hotel.ratings.no}} / 10) </div>
+                </div>
+                <!--<div class="empty-space"></div>-->
+
+                <div class="barrier"></div>
+
+                <div class="final-price">
+                    <div class="final-price-text">Hotel Website</div>
+                    <div class="hotel-price">{{hotel.price | currency}} <br /> 2 nights for {{hotel.price *2 | currency}}</div>
+                    <div class="view-deal">
+                        <input type="submit" class="price-button" value="View Deal"></div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    
+    <script src="app.js"></script>
+</body>
+</html>
